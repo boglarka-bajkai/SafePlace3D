@@ -17,13 +17,19 @@ public class FairyController : MonoBehaviour
     {
 		spawning = true;
 		fairy.SetDestination(end.position);
-		InvokeRepeating("SpawnLight", 0.0f, spawnBetween);
+		InvokeRepeating("SpawnLight", 1, spawnBetween);
     }
 
-	private void OnTriggerEnter(Collider collider)
+	private void OnTriggerEnter(Collider other)
 	{
-		spawning = false;
+		if (other.gameObject.tag == "Finish")
+		{
+			SpawnLight();
+			spawning = false;
+		}
+		Debug.Log(other.gameObject.tag);
 	}
+
 
 	private void SpawnLight()
 	{
